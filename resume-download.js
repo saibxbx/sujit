@@ -1,198 +1,110 @@
 // ==========================================
-// RESUME PDF DOWNLOAD - Using jsPDF
+// RESUME PDF DOWNLOAD - Simple jsPDF
 // ==========================================
 
-(function () {
+document.addEventListener('DOMContentLoaded', function() {
     const downloadBtn = document.getElementById('downloadResume');
     if (!downloadBtn) return;
 
-    downloadBtn.addEventListener('click', function () {
-        const originalText = downloadBtn.innerHTML;
+    downloadBtn.addEventListener('click', function() {
         downloadBtn.innerHTML = '⏳ Generating...';
         downloadBtn.disabled = true;
 
-        try {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            
-            let y = 20;
-            const leftMargin = 20;
-            const pageWidth = 210;
-            const contentWidth = pageWidth - 40;
-
-            // Header
-            doc.setFontSize(28);
-            doc.setTextColor(26, 26, 26);
-            doc.setFont('helvetica', 'bold');
-            doc.text('SUJIT S', pageWidth / 2, y, { align: 'center' });
-            
-            y += 10;
-            doc.setFontSize(14);
-            doc.setTextColor(184, 134, 11);
-            doc.text('Software Developer', pageWidth / 2, y, { align: 'center' });
-            
-            y += 8;
-            doc.setFontSize(10);
-            doc.setTextColor(100, 100, 100);
-            doc.text('LinkedIn: linkedin.com/in/sujit-s-b7933631b  |  GitHub: github.com/saibxbx', pageWidth / 2, y, { align: 'center' });
-            
-            // Line
-            y += 5;
-            doc.setDrawColor(218, 165, 32);
-            doc.setLineWidth(1);
-            doc.line(leftMargin, y, pageWidth - leftMargin, y);
-            
-            // Education
-            y += 15;
-            doc.setFontSize(14);
-            doc.setTextColor(184, 134, 11);
-            doc.setFont('helvetica', 'bold');
-            doc.text('EDUCATION', leftMargin, y);
-            
-            y += 3;
-            doc.setDrawColor(218, 165, 32);
-            doc.setLineWidth(0.5);
-            doc.line(leftMargin, y, leftMargin + 30, y);
-            
-            y += 8;
-            doc.setFontSize(12);
-            doc.setTextColor(26, 26, 26);
-            doc.setFont('helvetica', 'bold');
-            doc.text('VIT Chennai', leftMargin, y);
-            
-            y += 6;
-            doc.setFont('helvetica', 'normal');
-            doc.setTextColor(80, 80, 80);
-            doc.text('MTech Integrated Software Engineering', leftMargin, y);
-            
-            y += 5;
-            doc.setFontSize(10);
-            doc.setTextColor(120, 120, 120);
-            doc.text('Second Year', leftMargin, y);
-            
-            // Technical Skills
-            y += 15;
-            doc.setFontSize(14);
-            doc.setTextColor(184, 134, 11);
-            doc.setFont('helvetica', 'bold');
-            doc.text('TECHNICAL SKILLS', leftMargin, y);
-            
-            y += 3;
-            doc.setDrawColor(218, 165, 32);
-            doc.line(leftMargin, y, leftMargin + 45, y);
-            
-            y += 8;
-            doc.setFontSize(11);
-            doc.setTextColor(50, 50, 50);
-            doc.setFont('helvetica', 'bold');
-            doc.text('Programming: ', leftMargin, y);
-            doc.setFont('helvetica', 'normal');
-            doc.text('C, C++, Java, Python, JavaScript', leftMargin + 30, y);
-            
-            y += 6;
-            doc.setFont('helvetica', 'bold');
-            doc.text('Web: ', leftMargin, y);
-            doc.setFont('helvetica', 'normal');
-            doc.text('HTML, CSS, Node.js', leftMargin + 30, y);
-            
-            y += 6;
-            doc.setFont('helvetica', 'bold');
-            doc.text('Database: ', leftMargin, y);
-            doc.setFont('helvetica', 'normal');
-            doc.text('Oracle', leftMargin + 30, y);
-            
-            // Projects
-            y += 15;
-            doc.setFontSize(14);
-            doc.setTextColor(184, 134, 11);
-            doc.setFont('helvetica', 'bold');
-            doc.text('PROJECTS', leftMargin, y);
-            
-            y += 3;
-            doc.setDrawColor(218, 165, 32);
-            doc.line(leftMargin, y, leftMargin + 25, y);
-            
-            // Project 1
-            y += 10;
-            doc.setFontSize(12);
-            doc.setTextColor(26, 26, 26);
-            doc.setFont('helvetica', 'bold');
-            doc.text('Peace Messenger', leftMargin, y);
-            
-            y += 6;
-            doc.setFontSize(10);
-            doc.setFont('helvetica', 'normal');
-            doc.setTextColor(80, 80, 80);
-            doc.text('Real-time chat application with user authentication, message persistence,', leftMargin, y);
-            y += 5;
-            doc.text('group chats, and emoji support.', leftMargin, y);
-            
-            y += 5;
-            doc.setFontSize(9);
-            doc.setTextColor(100, 100, 100);
-            doc.text('Tech: React, Node.js, WebSocket  |  github.com/saibxbx/peace_messenger', leftMargin, y);
-            
-            // Project 2
-            y += 12;
-            doc.setFontSize(12);
-            doc.setTextColor(26, 26, 26);
-            doc.setFont('helvetica', 'bold');
-            doc.text('Expense Tracker', leftMargin, y);
-            
-            y += 6;
-            doc.setFontSize(10);
-            doc.setFont('helvetica', 'normal');
-            doc.setTextColor(80, 80, 80);
-            doc.text('Personal finance management tool with visual analytics and category-based tracking.', leftMargin, y);
-            
-            y += 5;
-            doc.setFontSize(9);
-            doc.setTextColor(100, 100, 100);
-            doc.text('Tech: HTML, CSS, JavaScript  |  saibxbx.github.io/sujit_exp', leftMargin, y);
-            
-            // Certifications
-            y += 15;
-            doc.setFontSize(14);
-            doc.setTextColor(184, 134, 11);
-            doc.setFont('helvetica', 'bold');
-            doc.text('CERTIFICATIONS', leftMargin, y);
-            
-            y += 3;
-            doc.setDrawColor(218, 165, 32);
-            doc.line(leftMargin, y, leftMargin + 40, y);
-            
-            y += 8;
-            doc.setFontSize(11);
-            doc.setTextColor(50, 50, 50);
-            doc.setFont('helvetica', 'normal');
-            doc.text('• Introduction to C - SoloLearn (February 2025)', leftMargin, y);
-            
-            y += 6;
-            doc.text('• Introduction to C++ - SoloLearn (February 2025)', leftMargin, y);
-            
-            // Footer quote
-            y += 25;
-            doc.setDrawColor(200, 200, 200);
-            doc.setLineWidth(0.3);
-            doc.line(leftMargin, y, pageWidth - leftMargin, y);
-            
-            y += 10;
-            doc.setFontSize(10);
-            doc.setTextColor(150, 150, 150);
-            doc.setFont('helvetica', 'italic');
-            doc.text('"If you believe in yourself, you can do it"', pageWidth / 2, y, { align: 'center' });
-
-            // Save
-            doc.save('Sujit_S_Resume.pdf');
-            
-            downloadBtn.innerHTML = originalText;
+        // Wait for jsPDF to load
+        if (typeof window.jspdf === 'undefined') {
+            alert('PDF library not loaded. Please refresh and try again.');
+            downloadBtn.innerHTML = '📄 DOWNLOAD PDF';
             downloadBtn.disabled = false;
-            
-        } catch (error) {
-            console.error('PDF Error:', error);
-            downloadBtn.innerHTML = originalText;
-            downloadBtn.disabled = false;
-            alert('PDF generation failed. Error: ' + error.message);
+            return;
         }
+
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        
+        // Simple text-based resume
+        doc.setFontSize(24);
+        doc.setFont('helvetica', 'bold');
+        doc.text('SUJIT S', 105, 25, { align: 'center' });
+        
+        doc.setFontSize(14);
+        doc.setFont('helvetica', 'normal');
+        doc.text('Software Developer', 105, 35, { align: 'center' });
+        
+        doc.setFontSize(10);
+        doc.text('LinkedIn: linkedin.com/in/sujit-s-b7933631b | GitHub: github.com/saibxbx', 105, 43, { align: 'center' });
+        
+        // Line
+        doc.setLineWidth(0.5);
+        doc.line(20, 48, 190, 48);
+        
+        // Education
+        doc.setFontSize(14);
+        doc.setFont('helvetica', 'bold');
+        doc.text('EDUCATION', 20, 60);
+        doc.setLineWidth(0.3);
+        doc.line(20, 62, 50, 62);
+        
+        doc.setFontSize(12);
+        doc.text('VIT Chennai', 20, 72);
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(11);
+        doc.text('MTech Integrated Software Engineering - Second Year', 20, 79);
+        
+        // Skills
+        doc.setFontSize(14);
+        doc.setFont('helvetica', 'bold');
+        doc.text('TECHNICAL SKILLS', 20, 95);
+        doc.line(20, 97, 60, 97);
+        
+        doc.setFontSize(11);
+        doc.setFont('helvetica', 'normal');
+        doc.text('Programming: C, C++, Java, Python, JavaScript', 20, 107);
+        doc.text('Web: HTML, CSS, Node.js', 20, 114);
+        doc.text('Database: Oracle', 20, 121);
+        
+        // Projects
+        doc.setFontSize(14);
+        doc.setFont('helvetica', 'bold');
+        doc.text('PROJECTS', 20, 137);
+        doc.line(20, 139, 45, 139);
+        
+        doc.setFontSize(12);
+        doc.text('Peace Messenger', 20, 149);
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(10);
+        doc.text('Real-time chat app with authentication, group chats, and emoji support.', 20, 156);
+        doc.text('Tech: React, Node.js, WebSocket | github.com/saibxbx/peace_messenger', 20, 162);
+        
+        doc.setFontSize(12);
+        doc.setFont('helvetica', 'bold');
+        doc.text('Expense Tracker', 20, 175);
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(10);
+        doc.text('Personal finance tool with visual analytics and category tracking.', 20, 182);
+        doc.text('Tech: HTML, CSS, JavaScript | saibxbx.github.io/sujit_exp', 20, 188);
+        
+        // Certifications
+        doc.setFontSize(14);
+        doc.setFont('helvetica', 'bold');
+        doc.text('CERTIFICATIONS', 20, 204);
+        doc.line(20, 206, 55, 206);
+        
+        doc.setFontSize(11);
+        doc.setFont('helvetica', 'normal');
+        doc.text('- Introduction to C - SoloLearn (February 2025)', 20, 216);
+        doc.text('- Introduction to C++ - SoloLearn (February 2025)', 20, 223);
+        
+        // Footer
+        doc.setLineWidth(0.2);
+        doc.line(20, 250, 190, 250);
+        doc.setFontSize(10);
+        doc.setFont('helvetica', 'italic');
+        doc.text('"If you believe in yourself, you can do it"', 105, 260, { align: 'center' });
+
+        // Save the PDF
+        doc.save('Sujit_S_Resume.pdf');
+        
+        downloadBtn.innerHTML = '📄 DOWNLOAD PDF';
+        downloadBtn.disabled = false;
     });
-})();
+});
