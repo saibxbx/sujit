@@ -1,103 +1,198 @@
 // ==========================================
-// RESUME PDF DOWNLOAD - SIMPLE APPROACH
+// RESUME PDF DOWNLOAD - Using jsPDF
 // ==========================================
 
 (function () {
     const downloadBtn = document.getElementById('downloadResume');
-
     if (!downloadBtn) return;
 
     downloadBtn.addEventListener('click', function () {
-        // Show loading state
         const originalText = downloadBtn.innerHTML;
         downloadBtn.innerHTML = '⏳ Generating...';
         downloadBtn.disabled = true;
 
-        // Create PDF content
-        const content = document.createElement('div');
-        content.innerHTML = `
-            <div id="pdf-resume" style="width: 210mm; padding: 15mm; background: white; font-family: Arial, sans-serif; color: #333; box-sizing: border-box;">
-                
-                <div style="text-align: center; border-bottom: 3px solid #DAA520; padding-bottom: 15px; margin-bottom: 20px;">
-                    <h1 style="margin: 0 0 5px 0; font-size: 32px; color: #1a1a1a;">SUJIT S</h1>
-                    <p style="margin: 0 0 10px 0; font-size: 18px; color: #B8860B; font-weight: bold;">Software Developer</p>
-                    <p style="margin: 0; font-size: 12px; color: #666;">
-                        LinkedIn: linkedin.com/in/sujit-s-b7933631b &nbsp;|&nbsp; GitHub: github.com/saibxbx
-                    </p>
-                </div>
+        try {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            let y = 20;
+            const leftMargin = 20;
+            const pageWidth = 210;
+            const contentWidth = pageWidth - 40;
 
-                <div style="margin-bottom: 18px;">
-                    <h2 style="font-size: 16px; color: #B8860B; border-bottom: 2px solid #DAA520; padding-bottom: 5px; margin: 0 0 10px 0; text-transform: uppercase;">Education</h2>
-                    <p style="margin: 0 0 3px 0; font-weight: bold; font-size: 14px;">VIT Chennai</p>
-                    <p style="margin: 0 0 3px 0; font-size: 13px;">MTech Integrated Software Engineering</p>
-                    <p style="margin: 0; font-size: 12px; color: #888;">Second Year</p>
-                </div>
+            // Header
+            doc.setFontSize(28);
+            doc.setTextColor(26, 26, 26);
+            doc.setFont('helvetica', 'bold');
+            doc.text('SUJIT S', pageWidth / 2, y, { align: 'center' });
+            
+            y += 10;
+            doc.setFontSize(14);
+            doc.setTextColor(184, 134, 11);
+            doc.text('Software Developer', pageWidth / 2, y, { align: 'center' });
+            
+            y += 8;
+            doc.setFontSize(10);
+            doc.setTextColor(100, 100, 100);
+            doc.text('LinkedIn: linkedin.com/in/sujit-s-b7933631b  |  GitHub: github.com/saibxbx', pageWidth / 2, y, { align: 'center' });
+            
+            // Line
+            y += 5;
+            doc.setDrawColor(218, 165, 32);
+            doc.setLineWidth(1);
+            doc.line(leftMargin, y, pageWidth - leftMargin, y);
+            
+            // Education
+            y += 15;
+            doc.setFontSize(14);
+            doc.setTextColor(184, 134, 11);
+            doc.setFont('helvetica', 'bold');
+            doc.text('EDUCATION', leftMargin, y);
+            
+            y += 3;
+            doc.setDrawColor(218, 165, 32);
+            doc.setLineWidth(0.5);
+            doc.line(leftMargin, y, leftMargin + 30, y);
+            
+            y += 8;
+            doc.setFontSize(12);
+            doc.setTextColor(26, 26, 26);
+            doc.setFont('helvetica', 'bold');
+            doc.text('VIT Chennai', leftMargin, y);
+            
+            y += 6;
+            doc.setFont('helvetica', 'normal');
+            doc.setTextColor(80, 80, 80);
+            doc.text('MTech Integrated Software Engineering', leftMargin, y);
+            
+            y += 5;
+            doc.setFontSize(10);
+            doc.setTextColor(120, 120, 120);
+            doc.text('Second Year', leftMargin, y);
+            
+            // Technical Skills
+            y += 15;
+            doc.setFontSize(14);
+            doc.setTextColor(184, 134, 11);
+            doc.setFont('helvetica', 'bold');
+            doc.text('TECHNICAL SKILLS', leftMargin, y);
+            
+            y += 3;
+            doc.setDrawColor(218, 165, 32);
+            doc.line(leftMargin, y, leftMargin + 45, y);
+            
+            y += 8;
+            doc.setFontSize(11);
+            doc.setTextColor(50, 50, 50);
+            doc.setFont('helvetica', 'bold');
+            doc.text('Programming: ', leftMargin, y);
+            doc.setFont('helvetica', 'normal');
+            doc.text('C, C++, Java, Python, JavaScript', leftMargin + 30, y);
+            
+            y += 6;
+            doc.setFont('helvetica', 'bold');
+            doc.text('Web: ', leftMargin, y);
+            doc.setFont('helvetica', 'normal');
+            doc.text('HTML, CSS, Node.js', leftMargin + 30, y);
+            
+            y += 6;
+            doc.setFont('helvetica', 'bold');
+            doc.text('Database: ', leftMargin, y);
+            doc.setFont('helvetica', 'normal');
+            doc.text('Oracle', leftMargin + 30, y);
+            
+            // Projects
+            y += 15;
+            doc.setFontSize(14);
+            doc.setTextColor(184, 134, 11);
+            doc.setFont('helvetica', 'bold');
+            doc.text('PROJECTS', leftMargin, y);
+            
+            y += 3;
+            doc.setDrawColor(218, 165, 32);
+            doc.line(leftMargin, y, leftMargin + 25, y);
+            
+            // Project 1
+            y += 10;
+            doc.setFontSize(12);
+            doc.setTextColor(26, 26, 26);
+            doc.setFont('helvetica', 'bold');
+            doc.text('Peace Messenger', leftMargin, y);
+            
+            y += 6;
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'normal');
+            doc.setTextColor(80, 80, 80);
+            doc.text('Real-time chat application with user authentication, message persistence,', leftMargin, y);
+            y += 5;
+            doc.text('group chats, and emoji support.', leftMargin, y);
+            
+            y += 5;
+            doc.setFontSize(9);
+            doc.setTextColor(100, 100, 100);
+            doc.text('Tech: React, Node.js, WebSocket  |  github.com/saibxbx/peace_messenger', leftMargin, y);
+            
+            // Project 2
+            y += 12;
+            doc.setFontSize(12);
+            doc.setTextColor(26, 26, 26);
+            doc.setFont('helvetica', 'bold');
+            doc.text('Expense Tracker', leftMargin, y);
+            
+            y += 6;
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'normal');
+            doc.setTextColor(80, 80, 80);
+            doc.text('Personal finance management tool with visual analytics and category-based tracking.', leftMargin, y);
+            
+            y += 5;
+            doc.setFontSize(9);
+            doc.setTextColor(100, 100, 100);
+            doc.text('Tech: HTML, CSS, JavaScript  |  saibxbx.github.io/sujit_exp', leftMargin, y);
+            
+            // Certifications
+            y += 15;
+            doc.setFontSize(14);
+            doc.setTextColor(184, 134, 11);
+            doc.setFont('helvetica', 'bold');
+            doc.text('CERTIFICATIONS', leftMargin, y);
+            
+            y += 3;
+            doc.setDrawColor(218, 165, 32);
+            doc.line(leftMargin, y, leftMargin + 40, y);
+            
+            y += 8;
+            doc.setFontSize(11);
+            doc.setTextColor(50, 50, 50);
+            doc.setFont('helvetica', 'normal');
+            doc.text('• Introduction to C - SoloLearn (February 2025)', leftMargin, y);
+            
+            y += 6;
+            doc.text('• Introduction to C++ - SoloLearn (February 2025)', leftMargin, y);
+            
+            // Footer quote
+            y += 25;
+            doc.setDrawColor(200, 200, 200);
+            doc.setLineWidth(0.3);
+            doc.line(leftMargin, y, pageWidth - leftMargin, y);
+            
+            y += 10;
+            doc.setFontSize(10);
+            doc.setTextColor(150, 150, 150);
+            doc.setFont('helvetica', 'italic');
+            doc.text('"If you believe in yourself, you can do it"', pageWidth / 2, y, { align: 'center' });
 
-                <div style="margin-bottom: 18px;">
-                    <h2 style="font-size: 16px; color: #B8860B; border-bottom: 2px solid #DAA520; padding-bottom: 5px; margin: 0 0 10px 0; text-transform: uppercase;">Technical Skills</h2>
-                    <p style="margin: 0 0 5px 0; font-size: 13px;"><strong>Programming:</strong> C, C++, Java, Python, JavaScript</p>
-                    <p style="margin: 0 0 5px 0; font-size: 13px;"><strong>Web:</strong> HTML, CSS, Node.js</p>
-                    <p style="margin: 0; font-size: 13px;"><strong>Database:</strong> Oracle</p>
-                </div>
-
-                <div style="margin-bottom: 18px;">
-                    <h2 style="font-size: 16px; color: #B8860B; border-bottom: 2px solid #DAA520; padding-bottom: 5px; margin: 0 0 10px 0; text-transform: uppercase;">Projects</h2>
-                    
-                    <div style="margin-bottom: 12px;">
-                        <p style="margin: 0 0 4px 0; font-weight: bold; font-size: 14px;">Peace Messenger</p>
-                        <p style="margin: 0 0 4px 0; font-size: 12px; color: #555;">Real-time chat application with user authentication, message persistence, group chats, and emoji support.</p>
-                        <p style="margin: 0; font-size: 11px; color: #666;">Tech: React, Node.js, WebSocket | github.com/saibxbx/peace_messenger</p>
-                    </div>
-                    
-                    <div>
-                        <p style="margin: 0 0 4px 0; font-weight: bold; font-size: 14px;">Expense Tracker</p>
-                        <p style="margin: 0 0 4px 0; font-size: 12px; color: #555;">Personal finance management tool with visual analytics and category-based tracking.</p>
-                        <p style="margin: 0; font-size: 11px; color: #666;">Tech: HTML, CSS, JavaScript | saibxbx.github.io/sujit_exp</p>
-                    </div>
-                </div>
-
-                <div style="margin-bottom: 18px;">
-                    <h2 style="font-size: 16px; color: #B8860B; border-bottom: 2px solid #DAA520; padding-bottom: 5px; margin: 0 0 10px 0; text-transform: uppercase;">Certifications</h2>
-                    <p style="margin: 0 0 5px 0; font-size: 13px;">• Introduction to C - SoloLearn (February 2025)</p>
-                    <p style="margin: 0; font-size: 13px;">• Introduction to C++ - SoloLearn (February 2025)</p>
-                </div>
-
-                <div style="text-align: center; margin-top: 25px; padding-top: 15px; border-top: 1px solid #ddd;">
-                    <p style="margin: 0; font-size: 11px; color: #888; font-style: italic;">"If you believe in yourself, you can do it"</p>
-                </div>
-            </div>
-        `;
-
-        document.body.appendChild(content);
-        const element = document.getElementById('pdf-resume');
-
-        // Generate PDF
-        const opt = {
-            margin: 0,
-            filename: 'Sujit_S_Resume.pdf',
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { 
-                scale: 2,
-                useCORS: true,
-                backgroundColor: '#ffffff',
-                logging: false
-            },
-            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-        };
-
-        html2pdf().from(element).set(opt).save().then(function() {
-            document.body.removeChild(content);
-            downloadBtn.innerHTML = originalText;
-            downloadBtn.disabled = false;
-        }).catch(function(err) {
-            console.error('PDF Error:', err);
-            document.body.removeChild(content);
+            // Save
+            doc.save('Sujit_S_Resume.pdf');
+            
             downloadBtn.innerHTML = originalText;
             downloadBtn.disabled = false;
             
-            // Fallback - open print dialog
-            alert('PDF generation failed. Opening print dialog instead.');
-            window.print();
-        });
+        } catch (error) {
+            console.error('PDF Error:', error);
+            downloadBtn.innerHTML = originalText;
+            downloadBtn.disabled = false;
+            alert('PDF generation failed. Error: ' + error.message);
+        }
     });
 })();
