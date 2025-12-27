@@ -119,27 +119,27 @@ $(document).ready(function () {
         }
     });
 
-    // Touch/Swipe support for mobile - DISABLED on game pages
+    // Touch/Swipe support for mobile - DISABLED only on Snake game page
     let touchStartX = 0;
     let touchEndX = 0;
     let touchStartY = 0;
     let touchEndY = 0;
 
-    // Check if we're on a game page
-    function isOnGamePage() {
+    // Check if we're on the Snake game page (page 3)
+    function isOnSnakeGamePage() {
         const currentPageNum = $("#book").turn("page");
-        return currentPageNum === 3 || currentPageNum === 4; // Snake and Memory pages
+        return currentPageNum === 3;
     }
 
-    // Check if touch is on game elements
-    function isTouchOnGame(e) {
+    // Check if touch is on snake game canvas
+    function isTouchOnSnakeGame(e) {
         const target = e.target;
-        return $(target).closest('#snakeCanvas, .game-container, .game-page, .memory-grid, .control-btn, .mobile-controls').length > 0;
+        return $(target).closest('#snakeCanvas, #snakeMobileControls').length > 0;
     }
 
     $('#book').on('touchstart', function (e) {
-        // If on game page or touching game elements, don't track for page swipe
-        if (isOnGamePage() || isTouchOnGame(e)) {
+        // Only block if on snake game page AND touching the game
+        if (isOnSnakeGamePage() && isTouchOnSnakeGame(e)) {
             touchStartX = 0;
             touchStartY = 0;
             return;
@@ -149,16 +149,15 @@ $(document).ready(function () {
     });
 
     $('#book').on('touchmove', function (e) {
-        // Prevent default on game pages to stop page from moving
-        if (isOnGamePage() || isTouchOnGame(e)) {
-            // Don't prevent - let the game handle it
+        // Only prevent on snake game
+        if (isOnSnakeGamePage() && isTouchOnSnakeGame(e)) {
             return;
         }
     });
 
     $('#book').on('touchend', function (e) {
-        // If on game page or touching game elements, don't turn pages
-        if (isOnGamePage() || isTouchOnGame(e)) {
+        // Only block if on snake game page AND touching the game AND game is running
+        if (isOnSnakeGamePage() && isTouchOnSnakeGame(e)) {
             return;
         }
         
@@ -167,7 +166,7 @@ $(document).ready(function () {
             return;
         }
 
-        if (touchStartX === 0) return; // No valid start point
+        if (touchStartX === 0) return;
         
         touchEndX = e.changedTouches[0].screenX;
         touchEndY = e.changedTouches[0].screenY;
@@ -178,14 +177,11 @@ $(document).ready(function () {
         const diffX = touchEndX - touchStartX;
         
         if (diffX < -80) {
-            // Swipe left - next page
             $("#book").turn("next");
         } else if (diffX > 80) {
-            // Swipe right - previous page
             $("#book").turn("previous");
         }
         
-        // Reset
         touchStartX = 0;
         touchEndX = 0;
     }
