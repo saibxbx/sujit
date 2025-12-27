@@ -649,9 +649,13 @@ body {
     gap: 12px;
 }
 
+/* Only block touch on snake canvas, not the whole page */
+#snakeCanvas {
+    touch-action: none;
+    -ms-touch-action: none;
+}
+
 .game-page .page-content {
-    touch-action: pan-y;
-    -ms-touch-action: pan-y;
     overflow-y: auto !important;
 }
 
@@ -664,8 +668,6 @@ body {
     -ms-touch-action: none;
     user-select: none;
     -webkit-user-select: none;
-    max-width: 100%;
-    height: auto;
 }
 
 .game-info {

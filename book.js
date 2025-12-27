@@ -176,9 +176,10 @@ $(document).ready(function () {
     function handleSwipe() {
         const diffX = touchEndX - touchStartX;
         
-        if (diffX < -80) {
+        // Reduced threshold from 80 to 50 for easier swiping
+        if (diffX < -50) {
             $("#book").turn("next");
-        } else if (diffX > 80) {
+        } else if (diffX > 50) {
             $("#book").turn("previous");
         }
         
