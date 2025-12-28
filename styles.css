@@ -739,14 +739,14 @@ body {
 .control-btn {
     width: 55px;
     height: 55px;
-    background: var(--gradient-gold);
-    color: var(--deep-black);
-    border: none;
+    background: #FFFFFF;
+    color: #000000;
+    border: 2px solid #ddd;
     border-radius: 10px;
     font-size: 1.5rem;
     cursor: pointer;
     transition: all 0.15s ease;
-    box-shadow: var(--shadow-card);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     font-weight: 700;
     display: flex;
     justify-content: center;
@@ -759,8 +759,8 @@ body {
 
 .control-btn:active {
     transform: scale(0.9);
-    background: var(--gradient-accent);
-    color: white;
+    background: #f0f0f0;
+    border-color: #bbb;
 }
 
 /* Always show on touch devices */
